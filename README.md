@@ -31,7 +31,7 @@ And one-time requirements:
  
    For Makita: The optimal length is 2.75" below the base of the router. That would make a 4" bar a perfect fit. The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 4" to decrease vibration and make more compact adapters. Don't trim your bars less than 3.75", this is about the minimum you can go.
 
-   For DRILL MASTER: You boring bar should be at least 2.5" long.
+   For DRILL MASTER: Your boring bar should be at least 2.5" long.
 
 4. (Optional) Use OpenSCAD to generate two models, one with "is_body_only" set to 0, another set to 1. Or download pre-rendered ones. 
 
