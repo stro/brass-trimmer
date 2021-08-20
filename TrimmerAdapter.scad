@@ -33,7 +33,7 @@ is_body_only = 0;
 router_type = "makita";
 
 // set to 1 if you want a shorter adapter, for example, if you're using a thick
-// 13/16" nut
+// 13/16" nut or your boring bar is really short
 short_threads = 0;
 
 // if you set it to 1, threads would be a little tighter so the router won't
@@ -128,7 +128,7 @@ module embossed () {
     translate([0, 0, (body_height + additional_height) / 2])
         cylinder(h = body_height + additional_height, d = body_diameter, center = true, $fn = fn);
     
-    // HF 2hp mount
+    // Drill Master 2hp mount
     if (is_dm2hp && ! is_body_only) {
         translate([0, 0, base_height / 2])
             cylinder(h = base_height, d = dm2hp_diameter, center = true, $fn = fn);

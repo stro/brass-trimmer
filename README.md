@@ -29,7 +29,7 @@ And one-time requirements:
 
 3. Measure your boring bar and trim it if necessary.
  
-   For Makita: The optimal length is 2.75" below the base of the router. That would make a 4" bar a perfect fit. The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 4" to decrease vibration and make more compact adapters. Don't trim your bars less than 3.75", this is about the minimum you can go.
+   For Makita: The optimal length is 2.75" below the base of the router. That would make a 4" bar a perfect fit. The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 4" to decrease vibration and make more compact adapters. Don't trim your bars less than 3.75", but if it's shorter, you can use "short_threads" set to 1 to make a shorter adapter. 2.8" is the shortest you could go.
 
    For DRILL MASTER: Your boring bar should be at least 2.5" long.
 
