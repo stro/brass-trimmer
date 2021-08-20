@@ -13,7 +13,7 @@ You will also need:
 * 3/8" boring bar with indexable carbide inserts, 3.75" long or more for Makita, 2.5" long for DRILL MASTER
 * 13/16"-20 trim dies made by Dillon, Lyman, Whidden, etc; one per caliber
 * 13/16"-20 nut (comes with Lyman dies, can also be found at automotive stores, they are thread axle nuts); one per caliber
-* M4x20 bolts (2 or 4 depending on router) 
+* 4 M4x16 bolts (Makita) or 2 M5x25 bolts (DRILL MASTER)
 
 And one-time requirements:
 
@@ -41,7 +41,7 @@ And one-time requirements:
 
 7. Insert the boring bar into the router and make sure it's affixed tight.
 
-8. Attach the printed adapter to the base of the router using M4 bolts.
+8. Attach the printed adapter to the base of the router using bolts.
 
 9. Install the trim die in your toolhead as you would install a sizing die. Remember to lubricate your brass when adjusting the position.
 

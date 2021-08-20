@@ -110,7 +110,7 @@ makita_width = 80;
 makita_mount_hole_diameter = 4.4;
 
 m4_bolt_head_diameter = 7.4;
-m4_bolt_head_height = 5;
+m4_bolt_head_height = 4.6;
 
 dm2hp_mount_hole_diameter = 5.5;
 dm2hp_hole_difference = 25;
@@ -150,7 +150,7 @@ module embossed () {
 module engraved () {
     // Threads; double the length to make sure they go all the way through
     translate([0, 0, body_height - threads_length * 2 + additional_height])
-        thread_for_nut_fullparm(threads_size, 2 * threads_length, usrclearance = tight_threads ? -0.6 : -0.4, pitch=mm_in_in / 20, divs=50, entry=1);
+        thread_for_nut_fullparm(threads_size, 2 * threads_length, usrclearance = tight_threads ? -0.4 : -0.2, pitch = mm_in_in / 20, divs = 50, entry = 1);
 
     echo(str("threads_length = ", threads_length, spaces));
     
