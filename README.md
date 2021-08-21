@@ -23,15 +23,15 @@ And one-time requirements:
 
 ## Basic instructions
 
-1. Decide what type of router you prefer. DRILL MASTER is cheaper and comes with a 3/8" collet, but it's a fixed speed router, it's loud, and it's massive. Makita is slightly more expensive, requires an additional 3/8" collet sold separately, but it's more compact and has variable speeds. At lower speeds, it's much quieter. It also allows to move the base up and down.
+1. Decide what type of router you prefer. DRILL MASTER is cheaper and comes with a 3/8" collet, but it's a fixed speed router, it's loud, and it's massive. Makita is slightly more expensive, requires an additional 3/8" collet sold separately, but it's more compact and has variable speeds. At lower speeds, it's much quieter. It also allows to move the base up and down. But it also vibrates more because it's lighter.
 
 2. Remove the base from your router. 
 
 3. Measure your boring bar and trim it if necessary.
  
-   For Makita: The optimal length is 2.75" below the base of the router. That would make a 4" bar a perfect fit. The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 4" to decrease vibration and make more compact adapters. Don't trim your bars less than 3.75", but if it's shorter, you can use "short_threads" set to 1 to make a shorter adapter. 2.8" is the shortest you could go.
+   For Makita: The optimal length is 2.75" below the base of the router. That would make a 3.75" or a 4" bar a perfect fit. The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 3.75" or 4" to decrease vibration and make more compact adapters. Don't trim your bars less than 3.75", but if it's shorter, you can use "short_threads" set to 1 to make a shorter adapter. 2.8" is the shortest you could go. Shorter bar means less vibration.
 
-   For DRILL MASTER: Your boring bar should be at least 2.5" long.
+   For DRILL MASTER: Your boring bar should be at least 2.5" long. Again, shorter bar means less vibration.
 
 4. (Optional) Use OpenSCAD to generate two models, one with "is_body_only" set to 0, another set to 1. Or download pre-rendered ones. 
 

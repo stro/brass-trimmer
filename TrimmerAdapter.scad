@@ -57,7 +57,7 @@ mm_in_in = 25.4;
 fn = 120; // slower rendering once, nicer look every day
 threads_size = 13 / 16 * mm_in_in; // 20.6375mm
 threads_length = short_threads ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
-max_bar = 10; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
+max_bar = 14; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
 
 is_makita = router_type == "makita" ? 1 : 0;
 is_dm2hp = is_makita ? 0 : 1;
@@ -110,7 +110,7 @@ makita_width = 80;
 makita_mount_hole_diameter = 4.4;
 
 m4_bolt_head_diameter = 7.4;
-m4_bolt_head_height = 4.6;
+m4_bolt_head_height = 4.0;
 
 dm2hp_mount_hole_diameter = 5.5;
 dm2hp_hole_difference = 25;
@@ -118,8 +118,6 @@ dm2hp_diameter = 2.3 * mm_in_in;
 
 slope_cone_height = 2;
 slope_cone_angle = 45;
-taper_cone_height = 1;
-taper_cone_angle = 45;
 
 use <./contrib/threads-library-by-cuiso-v1.scad>;
 
