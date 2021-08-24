@@ -33,7 +33,8 @@ is_body_only = 0;
 router_type = "makita";
 
 // set to 1 if you want a shorter adapter, for example, if you're using a thick
-// 13/16" nut or your boring bar is really short
+// 13/16" nut or your boring bar is really short. Drill Master 2hp adapter should
+// use "short_threads" set to 1 if you're using a 2.5" boring bar.
 short_threads = 0;
 
 // if you set it to 1, threads would be a little tighter so the router won't
@@ -74,7 +75,7 @@ spaces = "                ";
 // minimum body height is base_height + threads_length 
 // minimum_body + max_bar should be equal to bar_lenght - holder_depth assuming the bit holder is completely below the base_height line
 
-holder_depth = is_makita ? 30 : is_dm2hp ? 4.5 : 0;
+holder_depth = is_makita ? 30 : is_dm2hp ? -1.5 : 0;
 
 min_height = (center_hole - threads_size) / 2 + threads_length;
 
@@ -115,9 +116,13 @@ m4_bolt_head_height = 4.0;
 dm2hp_mount_hole_diameter = 5.5;
 dm2hp_hole_difference = 25;
 dm2hp_diameter = 2.3 * mm_in_in;
+dm2hp_minimum_hole_height = 37; // how long is the chuck
 
 slope_cone_height = 2;
 slope_cone_angle = 45;
+
+// DM2hp router needs more space to fit the chuck nut, change the angle of the top cone
+taper_cone_angle = is_dm2hp ? 60 : 45;
 
 use <./contrib/threads-library-by-cuiso-v1.scad>;
 
@@ -178,13 +183,24 @@ module engraved () {
     base_cone_height = (center_hole - main_body_inside_diameter) / 2;
     echo(str("base_cone_height = ", base_cone_height, spaces));
 
-    cone_height = (main_body_inside_diameter - threads_size) / 2;
+    cone_height = (main_body_inside_diameter - threads_size) / 2 / tan(taper_cone_angle);
     echo(str("cone_height = ", cone_height, spaces));
 
     main_body_inside_height = body_height - threads_length - cone_height + additional_height;
     echo(str("tube_height = ", main_body_inside_height, spaces));
     
     assert(main_body_inside_height >= 0, "You need a longer bar, a narrower center_hole, or shorter threads"); 
+
+    if (is_dm2hp) {
+        // Drill Master uses a pretty big chuck nut, and it needs to be taken into consideration
+        if (main_body_inside_height < dm2hp_minimum_hole_height) {
+            expected_bar_length = min_bar_length + main_body_inside_height - dm2hp_minimum_hole_height;
+
+            echo(str("WARNING: adapter is too short to fit the router's chuck"));
+            echo(str("Make sure you're using 'short_threads = 1'"));
+            assert(main_body_inside_height >= dm2hp_minimum_hole_height, str("The bar length should be at least ", expected_bar_length, " mm AKA ", expected_bar_length / mm_in_in, " inches")); 
+        }
+    }
 
     // The taper at the bottom of the base
     translate([0, 0, base_cone_height / 2])
