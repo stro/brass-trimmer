@@ -48,8 +48,8 @@ tight_threads = 1;
 // to shorten, positive to elongate.
 
 // For example, Makita router allows to raise the lower level by 20mm so you
-// can specify "additional_height = -15" and save some filament
-// But it's always better to use a shorter boring bar
+// can specify "additional_height = -15" and save some filament.
+// But it's always better to use a shorter boring bar.
 additional_height = 0; // in mm
 
 // Setting "extra_short" to 1 will allow to use really short boring bars with
@@ -75,7 +75,7 @@ if (is_dm2hp) {
 }
 
 bolt_hole_height = 30; // for mounting holes, should be more than the base_height
-center_hole = extra_short ? 30 : 44; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
+center_hole = extra_short ? 30 : 32; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
 main_body_inside_diameter = extra_short ? 30 : 32;
 
 base_height = 10;   //
@@ -111,7 +111,7 @@ if (body_height < min_height) {
     echo("WARNING! YOUR BORING BAR/DRILL BIT IS TOO SHORT");    
     echo(str("Minimum body height should be at least ", min_height, "mm", spaces)); 
     echo(str("Minimum bar length should be at least ", min_bar_length, "mm", spaces)); 
-    echo("You can also decrease center_hole value");
+    echo("You can also try setting 'extra_short' to 1");
     
     assert(body_height >= min_height, str("The bar length should be at least ", min_bar_length, " mm AKA ", min_bar_length / mm_in_in, " inches"));
 }
