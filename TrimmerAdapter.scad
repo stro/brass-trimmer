@@ -21,7 +21,7 @@
  */
 
 // total length of the boring bar with a bit attached in millimeters
-bar_length = 95.25; // in mm; 3.75" boring bar
+bar_length = 3.5 * 25.4; // in mm; 3.5" boring bar
 
 // set "is_body_only" if you want to generate the main tube which you can print
 // with higher density as described in documentation
@@ -39,7 +39,8 @@ short_threads = 0;
 
 // if you set it to 1, threads would be a little tighter so the router won't
 // turn the adapter when starting as easily. A downside, you must not share
-// one adapter among multiple dies because threads will get destroyed. 
+// one adapter among multiple dies because threads will get destroyed.
+// If your filament shrinks too much, set to 0.
 tight_threads = 1;
 
 // You can use "additional_height" parameter to adjust the final length of the
@@ -47,8 +48,14 @@ tight_threads = 1;
 // to shorten, positive to elongate.
 
 // For example, Makita router allows to raise the lower level by 20mm so you
-// can specify "additional_height = -20" and save some filament
+// can specify "additional_height = -15" and save some filament
+// But it's always better to use a shorter boring bar
 additional_height = 0; // in mm
+
+// Setting "extra_short" to 1 will allow to use really short boring bars with
+// Makita routers. It will not work with Drill Master (but its design already
+// allows shorter bars).
+extra_short = 0;
 
 /*****************************************************************************
  * NO SERVICEABLE PARTS BELOW. ENTER AT YOUR OWN RISK
@@ -57,27 +64,35 @@ additional_height = 0; // in mm
 mm_in_in = 25.4;
 fn = 120; // slower rendering once, nicer look every day
 threads_size = 13 / 16 * mm_in_in; // 20.6375mm
-threads_length = short_threads ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
+threads_length = short_threads || extra_short ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
 max_bar = 14; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
 
 is_makita = router_type == "makita" ? 1 : 0;
 is_dm2hp = is_makita ? 0 : 1;
 
-bolt_hole_height = 30; // for mounting holes, should be more than the base_height
-center_hole = 44; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short. 
-main_body_inside_diameter = 32; // 
+if (is_dm2hp) {
+    assert(! extra_short, "extra_short will not work with Drill Master");
+}
 
-base_height = 10;   //  
-body_diameter = 40; // outer diameter of the tube
+bolt_hole_height = 30; // for mounting holes, should be more than the base_height
+center_hole = extra_short ? 30 : 44; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
+main_body_inside_diameter = extra_short ? 30 : 32;
+
+base_height = 10;   //
+body_thickness = 2;
+body_diameter = main_body_inside_diameter + 2 * body_thickness; // outer diameter of the tube
 
 spaces = "                "; 
+
+// DM2hp router needs more space to fit the chuck nut, change the angle of the top cone
+taper_cone_angle = is_dm2hp ? 60 : 45;
 
 // minimum body height is base_height + threads_length 
 // minimum_body + max_bar should be equal to bar_lenght - holder_depth assuming the bit holder is completely below the base_height line
 
-holder_depth = is_makita ? 30 : is_dm2hp ? -1.5 : 0;
+holder_depth = is_makita ? 34 : is_dm2hp ? -1.5 : 0;
 
-min_height = (center_hole - threads_size) / 2 + threads_length;
+min_height = (center_hole - threads_size) / 2 / tan(taper_cone_angle) + threads_length;
 
 echo(str("min height = ", min_height, spaces));
 
@@ -120,9 +135,6 @@ dm2hp_minimum_hole_height = 37; // how long is the chuck
 
 slope_cone_height = 2;
 slope_cone_angle = 45;
-
-// DM2hp router needs more space to fit the chuck nut, change the angle of the top cone
-taper_cone_angle = is_dm2hp ? 60 : 45;
 
 use <./contrib/threads-library-by-cuiso-v1.scad>;
 
