@@ -29,7 +29,7 @@ And one-time requirements:
 
 3. Measure your boring bar and trim it if necessary.
  
-   For Makita: The optimal length is with 3.5" bar but it can be longer, or shorter like 3". The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 3" or 3.5" to decrease vibration and make more compact adapters. Don't trim your bars less than 3", but you can use "short_threads" set to 1 to make a shorter adapter if your length is less than 3.2". 2.8" is the shortest you could go unless you use "extra_short = 1", in which case, you could go as low as 2.55" but it wouldn't be really convenient and most likely, you won't be able to use any other station. Shorter bar means less vibration.
+   For Makita: The optimal length is with 3.5" bar but it can be longer, or shorter like 3". The least expensive options on the market are 6" long boring bars, but while they will work, it's better to have them trimmed to 3" or 3.5" to decrease vibration and make more compact adapters. Don't trim your bars less than 3", but you can use "short_threads" set to 1 to make a shorter adapter if your length is less than 3.2". You could go as low as 2.55" but it wouldn't be really convenient and most likely, you won't be able to use any other station. Shorter bar means less vibration.
 
    For DRILL MASTER: Your boring bar should be at least 2.55" long. Again, shorter bar means less vibration.
 

@@ -52,37 +52,34 @@ tight_threads = 1;
 // But it's always better to use a shorter boring bar.
 additional_height = 0; // in mm
 
-// Setting "extra_short" to 1 will allow to use really short boring bars with
-// Makita routers. It will not work with Drill Master (but its design already
-// allows shorter bars).
-extra_short = 0;
-
 /*****************************************************************************
  * NO SERVICEABLE PARTS BELOW. ENTER AT YOUR OWN RISK
  ****************************************************************************/
+spaces = "                ";
+
+echo(str("Calculating for bar length = ", bar_length, "mm", spaces));
 
 mm_in_in = 25.4;
 fn = 120; // slower rendering once, nicer look every day
 threads_size = 13 / 16 * mm_in_in; // 20.6375mm
-threads_length = short_threads || extra_short ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
+threads_length = short_threads ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
 max_bar = 14; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
 
 is_makita = router_type == "makita" ? 1 : 0;
 is_dm2hp = is_makita ? 0 : 1;
 
-if (is_dm2hp) {
-    assert(! extra_short, "extra_short will not work with Drill Master");
-}
-
 bolt_hole_height = 30; // for mounting holes, should be more than the base_height
-center_hole = extra_short ? 30 : 32; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
-main_body_inside_diameter = extra_short ? 30 : 32;
+center_hole = 32; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
+main_body_inside_diameter = 32;
 
 base_height = 10;   //
-body_thickness = 2;
-body_diameter = main_body_inside_diameter + 2 * body_thickness; // outer diameter of the tube
+body_thickness = 4;
+extra_wall = 2;
+body_diameter = is_body_only
+ ? main_body_inside_diameter + 2 * extra_wall      // body_only is narrower
+ : main_body_inside_diameter + 2 * body_thickness; // outer diameter of the tube shoud be 40mm
 
-spaces = "                "; 
+echo(str("body diameter = ", body_diameter, spaces));
 
 // DM2hp router needs more space to fit the chuck nut, change the angle of the top cone
 taper_cone_angle = is_dm2hp ? 60 : 45;
@@ -103,7 +100,7 @@ assert(threads_size < main_body_inside_diameter);
 
 body_height = bar_length - holder_depth - max_bar;
 
-min_bar_length = threads_length + max_bar + holder_depth + min_height;
+min_bar_length = max_bar + holder_depth + min_height;
 echo(str("min_bar_length = ", min_bar_length, "mm (", min_bar_length / mm_in_in, "in)", spaces));
 
 echo(str("body height is ", body_height, spaces));
