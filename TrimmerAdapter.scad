@@ -41,7 +41,7 @@ short_threads = 0;
 // turn the adapter when starting as easily. A downside, you must not share
 // one adapter among multiple dies because threads will get destroyed.
 // If your filament shrinks too much, set to 0.
-tight_threads = 1;
+tight_threads = 0;
 
 // You can use "additional_height" parameter to adjust the final length of the
 // adapter if default calculations don't work for you for some reason. Negative
@@ -63,21 +63,21 @@ mm_in_in = 25.4;
 fn = 120; // slower rendering once, nicer look every day
 threads_size = 13 / 16 * mm_in_in; // 20.6375mm
 threads_length = short_threads ? threads_size * 0.5 : threads_size; // not less than the length of threads on the trim die
-max_bar = 14; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
+max_bar = 10; // how long the bar extends below the threads. May depend upon the trim die and your preferred trim length
 
 is_makita = router_type == "makita" ? 1 : 0;
 is_dm2hp = is_makita ? 0 : 1;
 
 bolt_hole_height = 30; // for mounting holes, should be more than the base_height
 center_hole = 32; // the opening at the very bottom, can be increased if more clearance is needed or decreased if your boring bar is too short.
-main_body_inside_diameter = 32;
+main_body_inside_diameter = 31;
 
 base_height = 10;   //
 body_thickness = 4;
 extra_wall = 2;
 body_diameter = is_body_only
  ? main_body_inside_diameter + 2 * extra_wall      // body_only is narrower
- : main_body_inside_diameter + 2 * body_thickness; // outer diameter of the tube shoud be 40mm
+ : main_body_inside_diameter + 2 * body_thickness; // outer diameter of the tube shoud be 39mm
 
 echo(str("body diameter = ", body_diameter, spaces));
 
@@ -108,7 +108,7 @@ if (body_height < min_height) {
     echo("WARNING! YOUR BORING BAR/DRILL BIT IS TOO SHORT");    
     echo(str("Minimum body height should be at least ", min_height, "mm", spaces)); 
     echo(str("Minimum bar length should be at least ", min_bar_length, "mm", spaces)); 
-    echo("You can also try setting 'extra_short' to 1");
+    echo("You can also try setting 'short_threads' to 1");
     
     assert(body_height >= min_height, str("The bar length should be at least ", min_bar_length, " mm AKA ", min_bar_length / mm_in_in, " inches"));
 }
@@ -221,7 +221,22 @@ module engraved () {
 
     // The taper between threads and the main tube
     translate([0, 0, main_body_inside_height + cone_height / 2])
-        cylinder(cone_height, d1 = main_body_inside_diameter, d2 = threads_size, center = true, $fn = fn);
+        cylinder(h = cone_height, d1 = main_body_inside_diameter, d2 = threads_size, center = true, $fn = fn);
+
+    // Narrower part over threads
+    if (is_body_only) {
+        translate([0, 0, bar_length - holder_depth - max_bar - threads_length / 2])
+            difference () {
+                cylinder(h = threads_length, d = body_diameter + 4 * extra_wall, center = true, $fn = fn);
+                union () {
+                    cylinder(h = threads_length, d = threads_size + 4 * extra_wall, center = true, $fn = fn);
+                    translate([0, 0, - threads_length / 2])
+                        cylinder(h = cone_height, d1 = main_body_inside_diameter + 4 * extra_wall, d2 = threads_size + 2 * extra_wall, center = true, $fn = fn);
+                }
+        };
+        translate([0, 0, bar_length - holder_depth - max_bar + threads_length / 2 - 0.05])
+                cylinder(h = threads_length, d = body_diameter + 4 * extra_wall, center = true, $fn = fn);
+    }
 
     // The rest don't matter in the end, but useful for debugging
     // Main body height reference. 
